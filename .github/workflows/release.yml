@@ -41,8 +41,6 @@ jobs:
           tag_name: ${{ steps.bump.outputs.newTag }}
           # target_commitish: main
           generate_release_notes: true
-          files: |
-            README.md
 
       - name: Create pull request
         id: create-pr
@@ -51,4 +49,4 @@ jobs:
         run: |
           git status
           git push origin main
-          gh pr create --base release-dev --fill || echo Done
+          gh pr create --base release-dev -t "${{ steps.bump.outputs.newTag }}" -b "${{ steps.github-release.outputs.url }}" || echo Done
