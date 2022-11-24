@@ -49,5 +49,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          sleep 5
+          git status
+          git push origin main
           gh pr create --base release-dev --fill || echo Done
