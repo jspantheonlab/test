@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name:  'Automated Version Bump'
         id: bump
@@ -49,4 +51,4 @@ jobs:
         run: |
           git status
           git push origin main
-          gh pr create --base release-dev -t "${{ steps.bump.outputs.newTag }}" -b "${{ steps.github-release.outputs.url }}" || echo Done
+          gh pr create --base release-dev --fill || echo Done
