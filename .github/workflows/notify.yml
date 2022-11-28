@@ -14,11 +14,12 @@ jobs:
 
       - name: Conventional Changelog Action
         id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
+        uses: TriPSs/conventional-changelog-action@v3.17.2
         with:
           github-token: ${{ secrets.github_token }}
           output-file: "false"
           skip-commit: "true"
+          git-push: false
 
       - name: Microsoft Teams Notification
         uses: skitionek/notify-microsoft-teams@master
