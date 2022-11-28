@@ -44,6 +44,7 @@ jobs:
           output-file: 'false'
           skip-on-empty: 'false'
           git-push: 'false'
+          config-file-path: './release.config.js'
 
       - name: Create release
         id: github-release
@@ -62,4 +63,4 @@ jobs:
         run: |
           git status
           git push origin main
-          gh pr create --base release-dev --title "Bump version ${{ steps.bump.outputs.version }}" --body "${{ steps.bump.outputs.changelog }}" || echo Done
+          gh pr create --base release-dev --title "Bump version ${{ steps.bump.outputs.tag }}" --body "${{ steps.bump.outputs.changelog }}" || echo Done
