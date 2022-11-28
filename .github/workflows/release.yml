@@ -2,16 +2,7 @@ name: Bump Release
 
 on:
   workflow_dispatch:
-    inputs:
-      bump:
-        description: 'Bump version type'
-        required: true
-        default: 'patch'
-        type: choice
-        options:
-          - patch
-          - minor
-          - major
+  
 
 jobs:
   publish:
