@@ -1,11 +1,6 @@
 name: Release Notification
 
 on:
-  pull_request:
-    branches: 
-      - release-*
-    types:
-      - closed
   push:
     branches: 
       - release-*
@@ -20,3 +15,5 @@ jobs:
       - name: Microsoft Teams Notification
         uses: skitionek/notify-microsoft-teams@master
         if: always()
+        with:
+          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
