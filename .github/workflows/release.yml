@@ -40,8 +40,6 @@ jobs:
         id: changelog
         with:
           github-token: ${{ secrets.github_token }}
-          skip-commit: "true"
-          git-push: false
           create-summary: true
           output-file: 'false'
           skip-on-empty: 'false'
