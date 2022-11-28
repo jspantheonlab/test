@@ -37,12 +37,23 @@ jobs:
 
       - name: Conventional Changelog Action
         uses: TriPSs/conventional-changelog-action@v3
-        id: changelog
+        id: bump
         with:
           github-token: ${{ secrets.github_token }}
           create-summary: true
           output-file: 'false'
           skip-on-empty: 'false'
+          git-push: 'false'
+
+      - name: Create release
+        id: github-release
+        uses: softprops/action-gh-release@v1
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          name: ${{ steps.bump.outputs.tag }}
+          tag_name: ${{ steps.bump.outputs.tag }}
+          # target_commitish: main
+          generate_release_notes: true
 
       - name: Create pull request
         id: create-pr
@@ -51,4 +62,4 @@ jobs:
         run: |
           git status
           git push origin main
-          gh pr create --base release-dev --title "Bump version ${{ steps.changelog.outputs.version }}" --body "${{ steps.changelog.outputs.changelog }}" || echo Done
+          gh pr create --base release-dev --title "Bump version ${{ steps.bump.outputs.version }}" --body "${{ steps.bump.outputs.changelog }}" || echo Done
