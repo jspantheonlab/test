@@ -12,6 +12,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Conventional Changelog Action
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3.17.2
+        with:
+          github-token: ${{ secrets.github_token }}
+          output-file: "false"
+          skip-commit: "true"
+          git-push: false
+
       - name: Microsoft Teams Notification
         uses: skitionek/notify-microsoft-teams@master
         with:
@@ -19,4 +28,4 @@ jobs:
           needs: ${{ toJson(needs) }}
           job: ${{ toJson(job) }}
           steps: ${{ toJson(steps) }}
-          overwrite: "{title: `Deployment of ${{ github.ref_name }} started in ${workflow_link}`}"
+          overwrite: "{title: `Deployment of ${{ github.ref_name }} started in ${workflow_link}`, text:`${{ steps.changelog.outputs.clean_changelog }}`}"

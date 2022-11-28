@@ -1,6 +1,6 @@
 {
   "name": "test",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jspantheonlab/test/issues"
   },
-  "homepage": "https://github.com/jspantheonlab/test#readme"
+  "homepage": "https://github.com/jspantheonlab/test#readme",
+  "devDependencies": {
+    "conventional-changelog-conventionalcommits": "^5.0.0"
+  }
 }
