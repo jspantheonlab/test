@@ -16,5 +16,7 @@
     "url": "https://github.com/jspantheonlab/test/issues"
   },
   "homepage": "https://github.com/jspantheonlab/test#readme",
-  "devDependencies": {}
+  "devDependencies": {
+    "conventional-changelog-conventionalcommits": "^5.0.0"
+  }
 }
