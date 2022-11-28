@@ -25,25 +25,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name:  'Automated Version Bump'
-        id: bump
-        uses:  'phips28/gh-action-bump-version@v9.1.0'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name:  'Automated Version Bump'
+      #   id: bump
+      #   uses:  'phips28/gh-action-bump-version@v9.1.0'
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     version-type:  ${{ inputs.bump }}
+      #     tag-prefix:  'v'
+      #     skip-tag:  'true'
+
+      - name: Conventional Changelog Action
+        uses: TriPSs/conventional-changelog-action@v3
+        id: changelog
         with:
-          version-type:  ${{ inputs.bump }}
-          tag-prefix:  'v'
-          skip-tag:  'true'
-      
-      - name: Create release
-        id: github-release
-        uses: softprops/action-gh-release@v1
-        if: ${{ github.ref == 'refs/heads/main' }}
-        with:
-          name: ${{ steps.bump.outputs.newTag }}
-          tag_name: ${{ steps.bump.outputs.newTag }}
-          # target_commitish: main
-          generate_release_notes: true
+          github-token: ${{ secrets.github_token }}
+          skip-commit: "true"
+          git-push: false
+          create-summary: true
+          output-file: 'false'
 
       - name: Create pull request
         id: create-pr
@@ -52,4 +52,4 @@ jobs:
         run: |
           git status
           git push origin main
-          gh pr create --base release-dev --fill || echo Done
+          gh pr create --base release-dev --title "Bump version ${{ steps.changelog.outputs.version }}" --body "${{ steps.changelog.outputs.changelog }}" || echo Done
