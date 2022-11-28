@@ -44,6 +44,7 @@ jobs:
           git-push: false
           create-summary: true
           output-file: 'false'
+          skip-on-empty: 'false'
 
       - name: Create pull request
         id: create-pr
