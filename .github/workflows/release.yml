@@ -16,6 +16,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup node
+        id: node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NVMRC }}
+          cache: 'yarn'
+
+      - name: Install deps
+        run: |
+          yarn install
+
       # - name:  'Automated Version Bump'
       #   id: bump
       #   uses:  'phips28/gh-action-bump-version@v9.1.0'
