@@ -1,0 +1,22 @@
+name: Release Notification
+
+on:
+  pull_request:
+    branches: 
+      - release-*
+    types:
+      - closed
+  push:
+    branches: 
+      - release-*
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()

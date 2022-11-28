@@ -16,11 +16,14 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    permissions: write-all
+    # permissions:
+    #   contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name:  'Automated Version Bump'
         id: bump
@@ -41,5 +44,12 @@ jobs:
           tag_name: ${{ steps.bump.outputs.newTag }}
           # target_commitish: main
           generate_release_notes: true
-          files: |
-            README.md
+
+      - name: Create pull request
+        id: create-pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git status
+          git push origin main
+          gh pr create --base release-dev --fill || echo Done
