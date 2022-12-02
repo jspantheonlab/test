@@ -63,5 +63,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git status
-          git push origin main
+          git push
           gh pr create --base release-dev --title "Bump version ${{ steps.bump.outputs.tag }}" --body "${{ steps.bump.outputs.changelog }}" || echo Done
